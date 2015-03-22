@@ -33,13 +33,13 @@ makeCacheMatrix <- function(x = matrix()) {
     
     ## get the matrix inverse
     getsolve <- function() {
-      inverse ## get the stored inverse from the parent environment
+      inverse ## get the stored inverse
     }
     
     ## get the environment 
     getevn<- function() {environment()}
     
-    ## create a list of the functions for easy access to the set of functions created by makeCacheMatrix
+    ## return a list of the functions for easy access to the set of functions created by makeCacheMatrix
     list(set = set, get = get,
          setsolve = setsolve,
          getsolve = getsolve,
@@ -51,7 +51,7 @@ makeCacheMatrix <- function(x = matrix()) {
 ## cachesolve takes the argument, that is the list of functions returned by the makeCacheMatrix
 cacheSolve <- function(x, ...) {
   
-  ## check if the inverse is cached in environment of x , by using the getter getsolve()
+  ## check if the inverse is cached in parent environment of x , by using the getter getsolve()
   local_inverse <- x$getsolve()
   
   ## if yes then get the cached data
@@ -67,7 +67,7 @@ cacheSolve <- function(x, ...) {
   ## store the inverse of the matrix stored in data
   local_inverse <- solve(data, ...)
   
-  ## Cache the inverse, by calling the setsolve function from makeCacheMatrix in the environment of x
+  ## Cache the inverse, by calling the setsolve function from makeCacheMatrix 
   x$setsolve(local_inverse)
   
   ## Return a matrix that is the inverse of 'x'
